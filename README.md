@@ -1,4 +1,4 @@
-# match_student_code
+# Collection of Student Code of the Institut of Assembly Technology
 This repository contains all code of the students working at the Institut of Assembly Technology of the Leibniz University Hannover.
 
 ## How to add your code
@@ -12,16 +12,17 @@ There are two methods for adding your code. The first is only using the Github-W
 5. Column `Thesis title`: Insert the title of your thesis.
 6. Column `Description`: Explain in one sentence what algorithm or code you developed in your thesis.
 7. Type in a meaningful commit message and commit the changes.
-8. Add a folder directly below `match_student_code` with a `README.md` file by clicking the `Add file`-button: ![AddFileButton](documentation/add_file_button.png) and select `Add new file`. 
-9. Think of a name that summarizes your work/algorithm. This name is used in the next step.
-10. Behind `match_student_code/` type `Id_NameOfStep9/README.md`. Insert the `Id` from `step 4` and the name you thought of from `step 9`.
-11. Navigate into the created folder `Id_NameOfStep9`.
-12. Add all packages and additional files into the folder by clicking the `Add file`-button: ![AddFileButton](documentation/add_file_button.png) and then `Upload files`. Drag and drop all folders or files from the Windows Explorer into the box on the web interface to upload.
-13. Type in a meaningful commit message and commit the changes.
-14. Add a `README.md`-file in your folder (see `step 10`) and use the structure of the example-README-file in `000_ExampleFolder`.
-15. Fill out every necessary information in the copied structure and add any more details you want to describe or use your package.
-16. Type in a meaningful commit message and commit the changes.
-17. To finish, please jump below the second method where you create a pull request to the main repository.
+8. Navigate into the `student_code`-folder.
+9. Add a folder in `match_student_code/student_code` with a `README.md` file by clicking the `Add file`-button: ![AddFileButton](documentation/add_file_button.png) and select `Add new file`. 
+10. Think of a name that summarizes your work/algorithm. This name is used in the next step.
+11. Behind `match_student_code/student_code/` type `Id_NameOfStep10/README.md`. Insert the `Id` from `step 4` and the name you thought of from `step 10`.
+12. Navigate into the created folder `Id_NameOfStep10`.
+13. Add all packages and additional files into the folder by clicking the `Add file`-button: ![AddFileButton](documentation/add_file_button.png) and then `Upload files`. Drag and drop all folders or files from the Windows Explorer into the box on the web interface to upload.
+14. Type in a meaningful commit message and commit the changes.
+15. Add a `README.md`-file in your folder (see `step 11`) and use the structure of the example-README-file in `000_ExampleFolder`.
+16. Fill out every necessary information in the copied structure and add any more details you want to describe or use your package.
+17. Type in a meaningful commit message and commit the changes.
+18. To finish, please jump below the second method where you create a pull request to the main repository.
 
 ### Second Method
 1. Fork this repository by clicking on the `fork`-button: ![ForkButton](documentation/fork_button.png). Afterwards click `Create fork`.
@@ -33,7 +34,7 @@ There are two methods for adding your code. The first is only using the Github-W
 7. Column `Description`: Explain in one sentence what algorithm or code you developed in your thesis.
 8. Type in a meaningful commit message and commit the changes.
 9. Think of a name that summarizes your work/algorithm. This name is used in the next step.
-10. Create a folder in `match_student_code` named `Id_NameOfStep9`. Insert the `Id` from `step 5` and the name you thought of from `step 9`.
+10. Create a folder in `match_student_code/student_code` named `Id_NameOfStep9`. Insert the `Id` from `step 5` and the name you thought of from `step 9`.
 11. Add all packages and additional files into the folder, f.e. by drag and drop.
 12. Add a `README.md`-file in your folder (see `step 10`) and use the structure of the example-README-file in `000_ExampleFolder`.
 13. Fill out every necessary information in the copied structure and add any more details you want to describe or use your package.
