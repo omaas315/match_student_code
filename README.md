@@ -18,7 +18,26 @@ Here is the manual for the first method:
 11. Navigate into the created folder.
 12. Add all packages and additional files into the folder by clicking the `Add file`-button: ![AddFileButton] and then `Upload files`. Drag and drop all folders or files to upload.
 13. Type in a meaningful commit message and commit the changes.
-14. To finish, please jump below the second method where you create a pull request to the main repository.
+14. Please add a `README.md`-file in your folder (see `step 10`) and use the structure of the example-README-file in `000_ExampleFolder`.
+15. Fill out every necessary information in the copied structure and add any more details you want to describe or use your package.
+16. Commit your changes and type in a meaningful commit message.
+17. To finish, please jump below the second method where you create a pull request to the main repository.
+
+Here is the manual for the second method:
+1. Fork this repository by clicking on the `fork`-button: ![ForkButton](documentation/fork_button.png). Afterwards click `Create fork`.
+2. Clone the repository to your PC by executing the `git clone`-command with the forked repository.
+
+To merge your code into the official match-ROS repository, we need to create a Pull Request:
+1. Navigate to the start page of your forked version of the `match_student_code` repository.
+2. Check if the last commit message is by you. If not, you need to go into your forked version of the `match_student_code` repository.
+3. Click on the `Pull Request`-button: ![PullRequestButton](documentation/pull_request_button.png) and then `New Pull Request` on the right side.
+4. Compare two things with the following picture. Firstly, does the `base repository:` and `base:` match excactly. Secondly, is your forked version of the `match_student_code` repository listed behind `head repository` and is the branch selected that you commited your code to. 
+
+![grafik](https://user-images.githubusercontent.com/50292612/211014212-b623642f-1ab7-4cd2-b9cb-03a260362e44.png)
+5. Check if all changes are listed correctly. Did you add all necessary packages? Did you add all additional Matlab or Python scripts?
+6. Create the pull request by clicking on the `Create Pull Request`-button.
+
+
 
 Here is the manual for the second method:
 
