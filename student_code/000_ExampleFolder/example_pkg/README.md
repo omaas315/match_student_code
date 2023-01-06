@@ -3,6 +3,7 @@
 Extended explanation what functionality is included in this package.
 
 **Author:** Henrik Lurz
+
 **E-Mail:** lurz@match.uni-hannover.de 
 
 ## Usage
