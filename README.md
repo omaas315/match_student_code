@@ -2,32 +2,47 @@
 This repository contains all code of the students working at the Institut of Assembly Technology of the Leibniz University Hannover.
 
 ## How to add your code
-There are two methods for adding your code. The first is only using the Github-Webinterface. The second option is by cloning the repository and working on your computer.
+There are two methods for adding your code. The first is only using the Github-Webinterface. The second option is by cloning the repository and working on your computer. We advice to use the second method.
 
-Here is the manual for the first method:
+### First Method
 1. Fork this repository by clicking on the `fork`-button: ![ForkButton](documentation/fork_button.png). Afterwards click `Create fork`.
 2. Click on the `README.md`-file and then click on the edit-button: ![EditButton](documentation/edit_button.png) 
 3. Add another line to the table at the bottom. (You can copy the line of the student above for the structure)
 4. Column `Id`: Increase the previous line by 1. Please memorize the `Id`, as it will be used in `step 10`
 5. Column `Thesis title`: Insert the title of your thesis.
 6. Column `Description`: Explain in one sentence what algorithm or code you developed in your thesis.
-7. Type in a meaningful commit message and commit the changes to the `README.md`-file.
+7. Type in a meaningful commit message and commit the changes.
 8. Add a folder directly below `match_student_code` with a `README.md` file by clicking the `Add file`-button: ![AddFileButton](documentation/add_file_button.png) and select `Add new file`. 
 9. Think of a name that summarizes your work/algorithm. This name is used in the next step.
 10. Behind `match_student_code/` type `Id_AddYourNameHere/README.md`. Insert the `Id` from `step 4` and the name you thought of from `step 9`.
 11. Navigate into the created folder.
-12. Add all packages and additional files into the folder by clicking the `Add file`-button: ![AddFileButton] and then `Upload files`. Drag and drop all folders or files to upload.
+12. Add all packages and additional files into the folder by clicking the `Add file`-button: ![AddFileButton](documentation/add_file_button.png) and then `Upload files`. Drag and drop all folders or files to upload.
 13. Type in a meaningful commit message and commit the changes.
-14. Please add a `README.md`-file in your folder (see `step 10`) and use the structure of the example-README-file in `000_ExampleFolder`.
+14. Add a `README.md`-file in your folder (see `step 10`) and use the structure of the example-README-file in `000_ExampleFolder`.
 15. Fill out every necessary information in the copied structure and add any more details you want to describe or use your package.
-16. Commit your changes and type in a meaningful commit message.
+16. Type in a meaningful commit message and commit the changes.
 17. To finish, please jump below the second method where you create a pull request to the main repository.
 
-Here is the manual for the second method:
+### Second Method
 1. Fork this repository by clicking on the `fork`-button: ![ForkButton](documentation/fork_button.png). Afterwards click `Create fork`.
 2. Clone the repository to your PC by executing the `git clone`-command with the forked repository.
+3. Using any editor, open the `README.md`-file in the `match_student_code` folder.
+4. Add another line to the table at the bottom. (You can copy the line of the student above for the structure)
+5. Column `Id`: Increase the previous line by 1. Please memorize the `Id`, as it will be used in `step 10`
+6. Column `Thesis title`: Insert the title of your thesis.
+7. Column `Description`: Explain in one sentence what algorithm or code you developed in your thesis.
+8. Type in a meaningful commit message and commit the changes.
+9. Think of a name that summarizes your work/algorithm. This name is used in the next step.
+10. Create a folder in `match_student_code` named `Id_AddYourNameHere`. Insert the `Id` from `step 5` and the name you thought of from `step 9`.
+11. Add all packages and additional files into the folder, f.e. by drag and drop.
+12. Add a `README.md`-file in your folder (see `step 10`) and use the structure of the example-README-file in `000_ExampleFolder`.
+13. Fill out every necessary information in the copied structure and add any more details you want to describe or use your package.
+14. Type in a meaningful commit message and commit the changes.
+15. If not already done, push the changes to your forked repository.
+16. To finish, see the next chapter where you create a pull request to the main repository.
 
-To merge your code into the official match-ROS repository, we need to create a Pull Request:
+### Pull Request
+To merge your changes/added files into the official match-ROS repository, we need to create a Pull Request:
 1. Navigate to the start page of your forked version of the `match_student_code` repository.
 2. Check if the last commit message is by you. If not, you need to go into your forked version of the `match_student_code` repository.
 3. Click on the `Pull Request`-button: ![PullRequestButton](documentation/pull_request_button.png) and then `New Pull Request` on the right side.
