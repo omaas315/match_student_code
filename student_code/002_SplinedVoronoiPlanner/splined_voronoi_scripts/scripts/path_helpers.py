@@ -1,3 +1,4 @@
+import cv2
 import numpy as np
 
 
@@ -107,3 +108,50 @@ def world_to_map(point_world, map_origin, map_size_x, map_size_y, map_resolution
         return point_map
 
     return [map_size_x - 1, map_size_y - 1]
+
+
+class PathAnalyzer:
+    def __init__(self, path) -> None:
+        self.path = path
+        self.points = points_from_path(self.path)
+        self.angles = calc_angles(self.points)
+        self.angles = np.append(self.angles, self.angles[-1])
+
+    def calc_path_length(self):
+        differences = np.diff(self.points.T, axis=0)
+        if len(differences) < 1:
+            return 0.0
+        distances = np.linalg.norm(differences, axis=1, ord=2)
+        # pdb.set_trace()
+        path_length = np.sum(distances)
+        return path_length
+
+    def calc_distances_to_obstacles(self, map_data):
+        costmap_size_y = map_data.info.height
+        costmap_size_x = map_data.info.width
+        map_origin = (
+            map_data.info.origin.position.x,
+            map_data.info.origin.position.y,
+        )
+        map_resolution = map_data.info.resolution
+        map_img = np.zeros((costmap_size_x, costmap_size_y), dtype=np.uint8)
+        for i in range(costmap_size_x):
+            for j in range(costmap_size_y):
+                occupancy_index = j * costmap_size_x + i
+                if map_data.data[occupancy_index] == 0:
+                    map_img[i, j] = 255
+        distance_img = cv2.distanceTransform(
+            map_img, cv2.DIST_L2, 3, dstType=cv2.CV_8UC1
+        )
+        map_img_bgr = cv2.cvtColor(map_img, cv2.COLOR_GRAY2BGR)
+        # cv2.imwrite("map_img.png", map_img)
+        # cv2.imwrite("distance_img.png", distance_img)
+        distances = []
+        for point in self.points.T:
+            point_map = world_to_map(
+                point, map_origin, costmap_size_x, costmap_size_y, map_resolution
+            )
+            map_img_bgr[point_map[0], point_map[1]] = [0, 255, 0]
+            distances.append(distance_img[point_map[0], point_map[1]] * map_resolution)
+        # cv2.imwrite("map_with_path.png", map_img_bgr)
+        return np.asarray(distances, dtype=np.float64)
