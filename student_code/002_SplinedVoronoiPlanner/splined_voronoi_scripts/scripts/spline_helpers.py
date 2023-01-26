@@ -1,6 +1,14 @@
 import pdb
 
+import cv2
 import numpy as np
+from path_helpers import (
+    calc_angles,
+    calc_derivative,
+    offset_path,
+    points_from_path,
+    world_to_map,
+)
 
 # all functions regarding tinyspline without dependency on tinyspline lib
 
@@ -211,3 +219,76 @@ def sample_spline_path(control_points, num_samples=1000):
     samples_der = np.asarray(samples_der).T
     samples_der2 = np.asarray(samples_der2).T
     return samples, samples_der, samples_der2, curvatures
+
+
+class SplineAnalyzer:
+    def __init__(
+        self, optimized_sparse_path, spline_tangent_lengths, num_samples=1000
+    ) -> None:
+        self.optimized_sparse_path = optimized_sparse_path
+        self.spline_tangent_lengths = np.asarray(spline_tangent_lengths)
+        self.points = points_from_path(self.optimized_sparse_path)
+        self.connection_points = calc_connection_points(self.points)
+        self.control_points = calc_control_points_for_path(
+            self.points, self.spline_tangent_lengths
+        )
+        (
+            self.samples,
+            self.samples_der,
+            self.samples_der2,
+            self.curvatures,
+        ) = sample_spline_path(self.control_points, num_samples)
+        self.sample_distances = np.sqrt(
+            np.diff(self.samples[0]) ** 2 + np.diff(self.samples[1]) ** 2
+        )
+        self.path_distance = np.cumsum(self.sample_distances)
+        self.path_distance = np.append(self.path_distance, self.path_distance[-1])
+        self.angles = calc_angles(self.samples)
+        self.angles = np.append(self.angles, self.angles[-1])
+        # self.angles_der = calc_derivative(self.angles)
+        self.angles_der = np.diff(self.angles) / self.sample_distances
+        self.angles_der2 = calc_derivative(self.angles_der)
+        self.offsets = []
+
+    def offset(self, offset):
+        off_samples = offset_path(self.samples, self.angles, offset)
+        off_angles = calc_angles(off_samples)
+        off_angles = np.append(off_angles, off_angles[-1])
+        off_sample_distances = np.sqrt(
+            np.diff(off_samples[0]) ** 2 + np.diff(off_samples[1]) ** 2
+        )
+        # off_angles_der = calc_derivative(off_angles)
+        off_angles_der = np.diff(off_angles) / off_sample_distances
+        off_angles_der2 = calc_derivative(off_angles_der)
+        self.offsets.append((off_samples, off_angles, off_angles_der, off_angles_der2))
+        return off_samples, off_angles, off_angles_der, off_angles_der2
+
+    def calc_distances_to_obstacle(self, map_data):
+        costmap_size_y = map_data.info.height
+        costmap_size_x = map_data.info.width
+        map_origin = (
+            map_data.info.origin.position.x,
+            map_data.info.origin.position.y,
+        )
+        map_resolution = map_data.info.resolution
+        map_img = np.zeros((costmap_size_x, costmap_size_y), dtype=np.uint8)
+        for i in range(costmap_size_x):
+            for j in range(costmap_size_y):
+                occupancy_index = j * costmap_size_x + i
+                if map_data.data[occupancy_index] == 0:
+                    map_img[i, j] = 255
+        distance_img = cv2.distanceTransform(
+            map_img, cv2.DIST_L2, 3, dstType=cv2.CV_8UC1
+        )
+        map_img_bgr = cv2.cvtColor(map_img, cv2.COLOR_GRAY2BGR)
+        # cv2.imwrite("map_img.png", map_img)
+        # cv2.imwrite("distance_img.png", distance_img)
+        distances = []
+        for point in self.samples.T:
+            point_map = world_to_map(
+                point, map_origin, costmap_size_x, costmap_size_y, map_resolution
+            )
+            map_img_bgr[point_map[0], point_map[1]] = [0, 255, 0]
+            distances.append(distance_img[point_map[0], point_map[1]] * map_resolution)
+        # cv2.imwrite("map_with_path.png", map_img_bgr)
+        return np.asarray(distances, dtype=np.float64)
