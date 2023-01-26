@@ -32,7 +32,7 @@ contains functions which are useful for spline generation and analyzing which ar
 - get_coefficient_matrices: creates bernstein polynomials for each bézier curve in bézier spline
 - get_sample: get value of an bézier curve based on the bernstein polynomials and a fraction (position on curve between 0 and 1)
 - sample_spline_path: get samples from control points of bézier spline
-
+- SplineAnalyzer: class which gets waypoints, tangent lengths and map from bagfile and calculates info an spline and distance to obstacles 
 
 ## path_helpers.py
 contains functions which are useful for path handling
@@ -62,3 +62,9 @@ also creates plot for single quintic bézier curve
 creates plot for example splining and optimizing process
 - sparsing_example_from_bag: creates plot for exaple sparse path
 - splining_exmple_from_bag: creates plot for example splined and optimized path
+
+## single_formation_path.py
+analyzes single path as example for planning success
+- plots path of two robots of formation with 1m radius
+- plot distance of formation center to obstacles to show collision avoidance
+- plot orientation and anglular velocities of robots to show path is feasible with nonholonomic robots
