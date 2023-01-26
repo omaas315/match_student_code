@@ -30,9 +30,9 @@ There are two methods for adding your code. The first is only using the Github-W
 ### Second Method
 1. Clone the repository to your PC by executing the `git clone`-command with the forked repository.
 2. Think of a name that summarizes your work/algorithm. This name is used in the next step.
-3. Create a folder in `match_student_code/student_code` named `Id_NameOfStep2`. Insert the `Id` from `step 5` and the name you thought of from `step 9`.
+3. Create a folder in `match_student_code/student_code` named `Id_NameOfStep2`. Insert the `Id` from the chapter [Add yourself to the overview table](## Add yourself to the overview table) and the name you thought of from `step 2`.
 4. Add all packages and additional files into the folder, f.e. by drag and drop.
-5. Add a `README.md`-file in your folder (see `step 10`) and use the structure of the example-README-file in `000_ExampleFolder`.
+5. Add a `README.md`-file in your folder (see `step 3`) and use the structure of the example-README-file in `000_ExampleFolder`.
 6. Fill out every necessary information in the copied structure and add any more details you want to describe or use your package.
 7. Type in a meaningful commit message and commit the changes.
 8. If not already done, push the changes to your forked repository.
