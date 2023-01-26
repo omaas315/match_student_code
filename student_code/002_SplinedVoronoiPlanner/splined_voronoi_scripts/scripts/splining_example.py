@@ -1,13 +1,79 @@
 import pdb
 
+import matplotlib.font_manager
 import matplotlib.pyplot as plt
 import numpy as np
 from spline_helpers import (
     calc_connection_points,
     calc_control_points_for_path,
-    calc_control_points_for_path_orig,
+    calc_control_points_for_path_sra,
     sample_spline_path,
 )
+
+
+def single_quintic_bezier_curve():
+    t_s = np.array([0.0, 2.0], dtype=np.float64)
+    t_e = np.array([2.0, 0.0], dtype=np.float64)
+    a_s = np.array([3.0, 0.0], dtype=np.float64)
+    a_e = np.array([0.0, -3.0], dtype=np.float64)
+    cp_0 = np.array([0, 0], dtype=np.float64)
+    cp_5 = np.array([1, 1], dtype=np.float64)
+    cp_1 = t_s / 5 + cp_0
+    cp_4 = cp_5 - t_e / 5
+    cp_2 = a_s / 20 + 2 * cp_1 - cp_0
+    cp_3 = a_e / 20 + 2 * cp_4 - cp_5
+    control_points = np.array(
+        [
+            cp_0,
+            cp_1,
+            cp_2,
+            cp_3,
+            cp_4,
+            cp_5,
+        ],
+        dtype=np.float64,
+    )
+
+    samples, _, _, _ = sample_spline_path([control_points], 100)
+
+    plt.rcParams.update(
+        {
+            "text.usetex": True,
+            "font.family": "sans-serif",
+            "font.sans-serif": "Computer Modern",
+        }
+    )
+
+    figure = plt.figure("Test Spline", figsize=(5, 3))
+    ax = figure.subplots(1, 1)
+    ax.plot(samples[0], samples[1], label="Bézier-Kurve")
+    ax.plot(
+        control_points.T[0], control_points.T[1], "o", label="Kontrollpunkte", zorder=3
+    )
+    ax.arrow(
+        *cp_0, *t_s / 4, head_width=0.05, color="r", label="erste Ableitung", zorder=2
+    )
+    ax.arrow(*cp_5, *t_e / 4, head_width=0.05, color="r", zorder=2)
+    ax.arrow(
+        *cp_0, *a_s / 4, head_width=0.05, color="b", label="zweite Ableitung", zorder=2
+    )
+    ax.arrow(*cp_5, *a_e / 4, head_width=0.05, color="b", zorder=2)
+    ax.set_aspect("equal")
+    ax.set_xlabel("x [m]")
+    ax.set_ylabel("y [m]")
+    # ax.legend(bbox_to_anchor=(1.04, 0.5), loc="center left")
+    ax.legend()
+
+    ax.set_xticks(np.arange(0.0, 2.0, 0.5))
+    ax.set_yticks(np.arange(0.0, 1.5, 0.5))
+    ax.grid(axis="both", which="major")
+    ax.spines["top"].set_color("gray")
+    ax.spines["right"].set_color("gray")
+    figure.tight_layout()
+
+    figure.savefig("data/plots/example_bezier_curve.pdf")
+    # plt.show()
+
 
 def example_path():
     points = np.array(
@@ -21,7 +87,7 @@ def example_path():
         ],
         dtype=np.float64,
     ).T
-    
+
     return points
 
 
@@ -38,10 +104,9 @@ def example_spline():
     # for old version
     spline_tangent_lengths_sra = np.ones(len(points.T))
 
-
     plt.rcParams.update(
         {
-            # "text.usetex": True,
+            "text.usetex": True,
             "font.family": "sans-serif",
             "font.sans-serif": "Computer Modern",
         }
@@ -52,17 +117,17 @@ def example_spline():
     figure_smooth = plt.figure("Path smooth", figsize=(5.5, 2.7))
     # for tangent length variation
     figure_sra = plt.figure("Path sra", figsize=(5.9, 1.8))
-    figure_vars = plt.figure("Path tangent variation", figsize=(5.9, 1.8))
-    
+    figure_vars = plt.figure("Path tangent variation", figsize=(5.9, 2.2))
+
     ax_opt = figure_opt.subplots(1, 1)
     ax_smooth = figure_smooth.subplots(1, 1)
     ax_sra = figure_sra.subplots(1, 1)
     ax_vars = figure_vars.subplots(1, 1)
-    
+
     # all plots contain path from waypoints
     for ax in [ax_opt, ax_smooth, ax_sra, ax_vars]:
         ax.plot(points[0], points[1], "-o", label="Pfad aus Wegpunkten")
-    
+
     # my method introduces alternative connection points which are shown in plot
     for ax in [ax_opt, ax_smooth, ax_vars]:
         ax.plot(
@@ -87,9 +152,7 @@ def example_spline():
     )
 
     # calculate control points and sample for initial tangent selection
-    control_points_smooth = calc_control_points_for_path(
-        points, spline_tangent_lengths
-    )
+    control_points_smooth = calc_control_points_for_path(points, spline_tangent_lengths)
     samples_smooth, _, _, _ = sample_spline_path(control_points_smooth, num_samples)
     ax_smooth.plot(
         samples_smooth[0],
@@ -99,9 +162,9 @@ def example_spline():
         zorder=1,
     )
 
-    # calculate control points and sample for multiple tangent factors of old version 
+    # calculate control points and sample for multiple tangent factors of old version
     for tangent_length in [0.5, 1.0, 1.5, 2.0, 2.5]:
-        control_points_sra = calc_control_points_for_path_orig(
+        control_points_sra = calc_control_points_for_path_sra(
             points, spline_tangent_lengths_sra * tangent_length
         )
         samples_sra, _, _, _ = sample_spline_path(control_points_sra, num_samples)
@@ -113,8 +176,8 @@ def example_spline():
             zorder=1,
         )
 
-    # calculate control points and sample for multiple tangent factors for my version 
-    for tangent_length in [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5]:
+    # calculate control points and sample for multiple tangent factors for my version
+    for tangent_length in [0.5, 1.0, 1.5, 2.0, 2.5]:
         control_points_vars = calc_control_points_for_path(
             points, spline_tangent_lengths * tangent_length
         )
@@ -159,15 +222,16 @@ def example_spline():
     for figure in [figure_opt, figure_smooth, figure_vars, figure_sra]:
         figure.tight_layout()
     # save under different names
-    figure_opt.savefig("path_smooth_optimal_lengths.pdf")
-    figure_vars.savefig("paths_tangent_length.pdf")
-    figure_smooth.savefig("path_smooth.pdf")
-    figure_sra.savefig("path_smooth_old.pdf")
+    figure_opt.savefig("data/plots/path_smooth_optimal_lengths.pdf")
+    figure_vars.savefig("data/plots/paths_tangent_length.pdf")
+    figure_smooth.savefig("data/plots/path_smooth.pdf")
+    figure_sra.savefig("data/plots/path_smooth_old.pdf")
 
     # plt.show()
 
 
 def main():
+    single_quintic_bezier_curve()
     example_spline()
 
 
