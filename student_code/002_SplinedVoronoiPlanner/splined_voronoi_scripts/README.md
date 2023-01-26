@@ -68,3 +68,13 @@ analyzes single path as example for planning success
 - plots path of two robots of formation with 1m radius
 - plot distance of formation center to obstacles to show collision avoidance
 - plot orientation and anglular velocities of robots to show path is feasible with nonholonomic robots
+
+
+## compare_algorithms.py
+prints quota and time for each optimization algorithm
+
+## compare_sra_and_voronoi.py
+
+- calculate and plot distances to obstacles for every successful path
+- compare achieved curvature and path length
+- print time and success quota

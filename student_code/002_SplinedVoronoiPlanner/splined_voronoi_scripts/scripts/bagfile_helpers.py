@@ -45,13 +45,24 @@ class PlanningBagContents:
         return True
 
 
+class MakeNavPlanBagContents(PlanningBagContents):
+    def __init__(
+        self, filename: str = "plan_00000.bag", skip_maps: bool = False
+    ) -> None:
+        super().__init__(filename, skip_maps)
+        self.planning_success: int = self.bag_contents["success"].data
+        self.time_taken: float = self.bag_contents["time_taken"].data
+
+
 class MakeNavPlanWithStatsBagContents(PlanningBagContents):
     def __init__(
         self, filename: str = "plan_00000.bag", skip_maps: bool = False
     ) -> None:
         super().__init__(filename, skip_maps)
         self.planning_status_code: int = self.bag_contents["planning_status_code"].data
+        self.planning_success = self.planning_status_code >= 0
         self.total_time: float = self.bag_contents["total_time_taken_for_planning"].data
+        self.time_taken = self.total_time
         self.path_on_voronoi = self.bag_contents["path_on_voronoi"]
         self.sparse_path = self.bag_contents["sparse_path"]
         self.optimized_sparse_path = self.bag_contents["optimized_sparse_path"]
