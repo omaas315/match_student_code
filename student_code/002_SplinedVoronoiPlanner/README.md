@@ -1,33 +1,35 @@
 # Splined Voronoi Planner
 ## Overview
-In the `Overview`-chapter you describe the content of this folder, either in text or a listing. For example:
 
-This folder acts as an example for all the future students that will upload their code to this repository. It contains an example ROS-package that only contains a `README`-file to show how a package should be documented. Also any additional Matlab- or Python-script for the analysis of data should be added here.
+This folder contains all code for the work on a global path planner on voronoi diagrams with smoothing.
+It contains submodules to relevant packages and should be contained in an ROS noetic catkin workspace for building and using the packages.
+It also contains packages for evaluating and generting examples.
 
 **Author:** Sönke Prophet
 
 **E-Mail:** soenke.prophet@gmail.com
 
-For recreation of thesis results you have to copy the bagfiles to data folder; they are not contained in git due to large filesize.
-Also copy maps in splined_voronoi_scripts/maps.
+The data of the evaluation is stored on an USB-drive because of large filesize.
+To reproduce the results please copy the files to the data folder.
+Also copy relevant maps to splined_voronoi_scripts/maps.
+
 
 ## Packages
-### example_pkg 
-Explain in one sentence what the package is. In the package should be another README that deeply explains how to use the package. See the example file in the `example_pkg`-folder for the structure.
 
 ### match_path_planning/splined_voronoi
 Global Path planning and smoothing based on voronoi diagrams. Code is already contained in match_path_planning and therefore only contained as git submodule.
 
-## pure_voronoi_planner
+Further instructions for installation are in the contained README.
+
+### pure_voronoi_planner
 Global path planning on voronoi diagrams without smoothing. Used for comparison between dijkstra and astar and planning with and without additional freespaces.
 
 ### splined_voronoi_scripts
 A package which contains scripts for generating evaluation data and creating plots.
 For a better overview over the scripts and how to call them see [README](splined_voronoi_scripts/README.md)
 
-## Scripts
-### example_script.py 
-Explain what the script does and how to use it. Also mention any inputs and outputs.
+### match_mobile_robotics
+Package with general packages for mobile robotics at the match institute. It is only contained as a dependency for easier building.
 
 ## data
 Contains bagfiles used to generate results. 
