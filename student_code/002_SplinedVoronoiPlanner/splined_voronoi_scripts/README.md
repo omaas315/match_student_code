@@ -24,6 +24,13 @@ ToInclude:
 - src for generating different sized voronoi?
 
 
+## plan_caller
+scripts to automatically call path planning and saving results in bagfiles.
+- single_path_planner: waits on topics /start_pose and /goal_pose and feeds them to planner
+- generate_random_plans: waits on map and generates start goal pairs and saves them in single bagfile
+- random_plan_caller: reads starts and goals from bagfile and feeds them to path planner and saves results in bagfiles
+- specific_plan_caller: reads starts and goals from List.md and feeds them to splined_voronoi and splined_relaxed_astar for comparison and saves results in bagfiles
+
 ## spline_helpers.py
 contains functions which are useful for spline generation and analyzing which are used in various different scripts such as:
 - calc_connection_points: calculates connection points from a given set of waypoints

@@ -92,7 +92,7 @@ def splining_exmple_from_bag():
         }
     )
 
-    figure = plt.figure("Splining", figsize=(5.9, 2.7))  # , dpi=300
+    figure = plt.figure("Splining", figsize=(5.9, 2.3))  # , dpi=300
     ax = figure.subplots(1, 1)
     ax.plot(sparse_plan[1], sparse_plan[0], "-o", label="Wegpunkte")
     ax.plot(
