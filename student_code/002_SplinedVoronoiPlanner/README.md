@@ -9,7 +9,7 @@ This folder acts as an example for all the future students that will upload thei
 **E-Mail:** soenke.prophet@gmail.com
 
 For recreation of thesis results you have to copy the bagfiles to data folder; they are not contained in git due to large filesize.
-
+Also copy maps in splined_voronoi_scripts/maps.
 
 ## Packages
 ### example_pkg 
