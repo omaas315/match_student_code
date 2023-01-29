@@ -1,8 +1,9 @@
-## splined voronoi scripts
+# splined voronoi scripts
 
 This is a package containing scripts useful for analyzing the splined voronoi planner.
 
 It is used for:
+- launching the simulation and the global path planner
 - generating random plans
 - feeding plans in planner and save results in bagfiles
 - generating example plots
@@ -23,8 +24,29 @@ For generating results run scripts from 002_SplinedVoronoiPlanner folder.
 ToInclude:
 - src for generating different sized voronoi?
 
+# launch
+Has launchfiles to start all nodes neccessary for path planning.
 
-## plan_caller
+launching gazebo environment with turtlebot3 in it:
+- path to map without ending slash and to a folder which contains a world.world and map.yaml
+```bash
+roslaunch splined_voronoi_scripts turtlebot_gazebo.launch path_to_map_folder:=/path/to/maps/folder
+```
+
+launching move base flex with splined_voronoi as global planner:
+```bash
+roslaunch splined_voronoi_scripts splined_voronoi.launch
+```
+
+launching move base flex with pure_voronoi_planner as global planner:
+```bash
+roslaunch splined_voronoi_scripts pure_voronoi_planner.launch
+```
+
+
+# scripts
+
+## plan_caller:
 scripts to automatically call path planning and saving results in bagfiles.
 - single_path_planner: waits on topics /start_pose and /goal_pose and feeds them to planner
 - generate_random_plans: waits on map and generates start goal pairs and saves them in single bagfile

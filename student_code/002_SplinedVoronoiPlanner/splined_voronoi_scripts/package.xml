@@ -18,5 +18,7 @@
   <exec_depend>std_msgs</exec_depend>
   <depend>move_base_flex</depend>
   <depend>turtlebot3</depend>
+  <depend>turtlebot3_navigation</depend>
+  <depend>turtlebot3_description</depend>
   
 </package>

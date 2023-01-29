@@ -1,6 +1,6 @@
 planners:
   - name: 'PureVoronoiPlanner'
-    type: 'voronoi_planner/PureVoronoiPlanner'
+    type: 'pure_voronoi_planner/PureVoronoiPlanner'
 
 VoronoiPlanner:
   free_cell_threshold: 0
