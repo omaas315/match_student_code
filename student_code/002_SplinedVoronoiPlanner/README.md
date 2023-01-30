@@ -3,7 +3,7 @@
 
 This folder contains all code for the work on a global path planner on voronoi diagrams with smoothing.
 It contains submodules to relevant packages and should be contained in an ROS noetic catkin workspace for building and using the packages.
-It also contains packages for evaluating and generting examples.
+It also contains packages for evaluating and generating examples.
 
 **Author:** Sönke Prophet
 
@@ -13,6 +13,19 @@ The data of the evaluation is stored on an USB-drive because of large filesize.
 To reproduce the results please copy the files to the data folder.
 Also copy relevant maps to splined_voronoi_scripts/maps.
 
+## Installation
+
+For usage with move base flex on ROS noetic with catkin workspace
+
+```bash
+cd /path/to/workspace/src/match_student_code
+git submodule update --init --recursive
+cd student_code/002_SplinedVoronoiPlanner/match_path_planning/
+./setup.sh
+/path/to/workspace/
+rosdep install --from-paths src --ignore-src -r -y
+catkin build
+```
 
 ## Packages
 
@@ -26,10 +39,8 @@ Global path planning on voronoi diagrams without smoothing. Used for comparison 
 
 ### splined_voronoi_scripts
 A package which contains scripts for generating evaluation data and creating plots.
+Also contains launchfiles for starting simulation and global planner.
 For a better overview over the scripts and how to call them see [README](splined_voronoi_scripts/README.md)
-
-### match_mobile_robotics
-Package with general packages for mobile robotics at the match institute. It is only contained as a dependency for easier building.
 
 ## data
 Contains bagfiles used to generate results. 
