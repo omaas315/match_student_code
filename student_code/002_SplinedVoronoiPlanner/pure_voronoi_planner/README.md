@@ -15,6 +15,14 @@ Can be used as plugin of move_base_flex with name pure_voronoi_planner/PureVoron
 
 Example Launchfile is in [splined_voronoi_scripts/launch](../splined_voronoi_scripts/launch/pure_voronoi_planner.launch)
 
+Available Parameters (can be adapted in yaml or via dynamic reconfigure):
+- free_cell_threshold: threshold for defining free space from costmap. Should be chosen so that a single robot is guaranteed without collision.
+- min_radius: minimal radius that robot formation takes; costmap is enlargened accordingly
+- use_dijkstra: if dijkstra should be used for path planning; if false a* is used
+- free_space_factor: factor for min_radius. at this distance to obstacles freespace is added to planning space regardless of voronoi diagram
+- large_free_spaces: if additional free spaces should be added; if false pure voronoi diagram is used for planning
+
+
 ## Starting comparison of voronoi generation
 
 ```bash

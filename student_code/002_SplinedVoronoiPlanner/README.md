@@ -7,7 +7,7 @@ It also contains packages for evaluating and generating examples.
 
 **Author:** Sönke Prophet
 
-**E-Mail:** soenke.prophet@gmail.com
+**E-Mail:** soenke.prophet@stud.uni-hannover.de
 
 The data of the evaluation is stored on an USB-drive because of large filesize.
 To reproduce the results please copy the files to the data folder.
