@@ -16,15 +16,17 @@ int main(int argc, char** argv)
         return -1;
     }
     std::cout << "===============" << std::endl;
+    std::string base_filepath = ros::package::getPath("pure_voronoi_planner") + "/../data/voronoi/";
     // load image
     std::cout << "Load map from " << argv[1] << std::endl;
     double start_resolution = 0.05;
-    double distance_to_obstacle = 0.5;
+    double distance_to_obstacle = 0.6;
     cv::Mat img_gray = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
     // all unknowns as obstacle
     cv::Mat img_binary;
     cv::threshold(img_gray, img_binary, 220, 255, cv::THRESH_BINARY);
-    cv::imwrite("/home/soenke/Bilder/voronoi_comparison/input_img_binary.png", img_binary);
+    // cv::imwrite("/home/soenke/Bilder/voronoi_comparison/input_img_binary.png", img_binary);
+    cv::imwrite(base_filepath + "input_img_binary.png", img_binary);
     // get costmap by distance transform
     std::cout << "Calc costmap from map based on distance transform" << std::endl;
     cv::Mat costmap_img;
@@ -32,15 +34,16 @@ int main(int argc, char** argv)
     // cv::imwrite("/home/rosmatch/Bilder/voronoi_comparison/distance_img.png", costmap_img);
     cv::threshold(costmap_img, costmap_img, distance_to_obstacle / start_resolution, 255, cv::THRESH_BINARY_INV);
     costmap_img.convertTo(costmap_img, CV_8UC1);
-    cv::imwrite("/home/soenke/Bilder/voronoi_comparison/costmap_img.png", costmap_img);
-    
+    // cv::imwrite("/home/soenke/Bilder/voronoi_comparison/costmap_img.png", costmap_img);
+    cv::imwrite(base_filepath + "costmap_img.png", costmap_img);
+
     double max_img_dimension = img_gray.cols > img_gray.rows ? img_gray.cols : img_gray.rows;
     std::vector<double> desired_dimensions = {4000.0, 3000.0, 2000.0, 1000.0};
     std::vector<double> times_dynamicvoronoi;
     std::vector<double> times_boostvoronoi;
 
     int downsampling_idx = 0;
-    std::string base_filepath = "/home/soenke/Bilder/voronoi_comparison/";
+    // std::string base_filepath = "/home/soenke/Bilder/voronoi_comparison/";
     for (auto desired_dimension : desired_dimensions)
     {
         std::cout << "===============" << std::endl;
@@ -82,7 +85,7 @@ int main(int argc, char** argv)
         cv::Mat dist_img_narrow;
         cv::distanceTransform(~costmap_img_downsampled, dist_img_narrow, cv::DIST_L2, 3, CV_8UC1);
         // threshold with 4 times formation radius
-        cv::threshold(dist_img_narrow, dist_img_narrow, factor * 32, 255, cv::THRESH_BINARY);
+        cv::threshold(dist_img_narrow, dist_img_narrow, factor * 80, 255, cv::THRESH_BINARY);
         dist_img_narrow.convertTo(dist_img_narrow, CV_8UC1);
         // bitwise or with voronoi image to combine both
         cv::bitwise_or(out_boostvoronoi, dist_img_narrow, out_boostvoronoi);
