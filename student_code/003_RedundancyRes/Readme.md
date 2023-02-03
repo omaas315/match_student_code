@@ -19,6 +19,11 @@ For more details see [Readme](optimization_algo/README.md).
 Can either be used as a class to be implemented in own script, or otherwise by just running the main.
 Needs a running controller for the Robot arm listening to topic at `cooperative_manipulation/cartesian_velocity_command`.
 
+##### control/ur_admittance_control_hw.py
+- input: cartesian velocity command via topic `cooperative_manipulation/cartesian_velocity_command`
+- output: joint_velocities: `/mur/ur/joint_group_vel_controller/command`
+parallel force_pos controller for the robot arm using _mur.lauch_ of _match_mobile_robotics_
+
 ### match_mobile_robotics
 ...
 
