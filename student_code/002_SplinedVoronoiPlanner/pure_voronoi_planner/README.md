@@ -13,7 +13,7 @@ Contains:
 
 Can be used as plugin of move_base_flex with name pure_voronoi_planner/PureVoronoiPlanner
 
-Example Launchfile is in [splined_voronoi_scripts/launch](../splined_voronoi_scripts/launch/pure_voronoi_planner.launch)
+Example Launchfile is in [splined_voronoi_analysis/launch](../splined_voronoi_analysis/launch/pure_voronoi_planner.launch)
 
 Available Parameters (can be adapted in yaml or via dynamic reconfigure):
 - free_cell_threshold: threshold for defining free space from costmap. Should be chosen so that a single robot is guaranteed without collision.

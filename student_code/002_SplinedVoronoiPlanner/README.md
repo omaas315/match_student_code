@@ -11,39 +11,47 @@ It also contains packages for evaluating and generating examples.
 
 The data of the evaluation is stored on an USB-drive because of large filesize.
 To reproduce the results please copy the files to the data folder.
-Also copy relevant maps to splined_voronoi_scripts/maps.
+Also copy relevant maps to splined_voronoi_analysis/maps.
 
 ## Installation
 
-For usage with move base flex on ROS noetic with catkin workspace
+For usage with move base flex on ROS noetic with catkin workspace:
 
 ```bash
 cd /path/to/workspace/src/match_student_code
 git submodule update --init --recursive
 cd student_code/002_SplinedVoronoiPlanner/match_path_planning/
 ./setup.sh
-/path/to/workspace/
+cd /path/to/workspace/
 rosdep install --from-paths src --ignore-src -r -y
 catkin build
 ```
 
-## Packages
+# Contained Packages
 
-### match_path_planning/splined_voronoi
+## match_path_planning/splined_voronoi
+
 Global Path planning and smoothing based on voronoi diagrams. Code is already contained in match_path_planning and therefore only contained as git submodule.
 
-Further instructions for installation are in the contained README.
+For installation and overview of functions and parameters see [README](match_path_planning/splined_voronoi/splined_voronoi/README.md).
 
-### pure_voronoi_planner
+## pure_voronoi_planner
 Global path planning on voronoi diagrams without smoothing. Used for comparison between dijkstra and astar and planning with and without additional freespaces.
 
-### splined_voronoi_scripts
+For more Information see [README](pure_voronoi_planner/README.md).
+
+## splined_voronoi_analysis
 A package which contains scripts for generating evaluation data and creating plots.
 Also contains launchfiles for starting simulation and global planner.
-For a better overview over the scripts and how to call them see [README](splined_voronoi_scripts/README.md)
+
+For more Information see [README](splined_voronoi_analysis/README.md).
 
 ## data
 Contains bagfiles used to generate results. 
 The data is stored separately due to large filesize.
+For validating results copy files to this folder and run scripts.
 
-Pltos will also be saved in this folder.
+- compare_planner: contains bagfiles to compare splined_voronoi planner with splined_relaxed_astar planner
+- test_planner: contains bagfiles to analyze planning success of smoothed planner
+- voronoi: contains bagfiles to compare voronoi generation by different algorithms and difference between dijkstra and astar planning
+- plots: where generated plots from analyzation will be saved
