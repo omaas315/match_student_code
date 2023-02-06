@@ -43,6 +43,10 @@ launching move base flex with pure_voronoi_planner as global planner:
 roslaunch splined_voronoi_analysis pure_voronoi_planner.launch
 ```
 
+launching move base flex with splined_relaxed_a_star as global planner:
+```bash
+roslaunch splined_voronoi_analysis splined_relaxed_a_star.launch
+```
 
 # scripts
 

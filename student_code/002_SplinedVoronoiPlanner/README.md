@@ -46,6 +46,9 @@ Also contains launchfiles for starting simulation and global planner.
 
 For more Information see [README](splined_voronoi_analysis/README.md).
 
+## splined_relaxed_astar
+Reference Planner for comparison; Implementation taken from https://github.com/match-ROS/formation-path-planning. Code was reduced to contain only relevant parts and interface was added for automatic plan generation.
+
 ## data
 Contains bagfiles used to generate results. 
 The data is stored separately due to large filesize.
