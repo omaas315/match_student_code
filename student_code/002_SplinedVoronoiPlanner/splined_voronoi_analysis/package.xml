@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>splined_voronoi_scripts</name>
+  <name>splined_voronoi_analysis</name>
   <version>0.0.0</version>
-  <description>The splined_voronoi_scripts package</description>
+  <description>The splined_voronoi_analysis package</description>
   <maintainer email="soenke.prophet@stud.uni-hannover.de">Sönke Prophet</maintainer>
   <license>TODO</license>
 

@@ -17,7 +17,7 @@
         <param name="planner_max_retries" value="$(arg planner_max_retries)" />
 
         <!-- general move_base param -->
-        <rosparam file="$(find splined_voronoi_scripts)/config/mbf_config/mbf_common_params.yaml" command="load" subst_value="true" />
+        <rosparam file="$(find splined_voronoi_analysis)/config/mbf_config/mbf_common_params.yaml" command="load" subst_value="true" />
         <rosparam param="recovery_enabled">False</rosparam>
 
         <!-- Load param file for the global path planner. User must define the path to the config file. -->
@@ -26,9 +26,9 @@
         <!--<rosparam file="$(arg local_planner_config)" command="load" />-->
 
         <!-- global costmap params -->
-        <rosparam file="$(find splined_voronoi_scripts)/config/mbf_config/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true" />
-        <rosparam file="$(find splined_voronoi_scripts)/config/mbf_config/costmap_params.yaml" command="load" />
-        <rosparam file="$(find splined_voronoi_scripts)/config/mbf_config/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true" />
+        <rosparam file="$(find splined_voronoi_analysis)/config/mbf_config/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true" />
+        <rosparam file="$(find splined_voronoi_analysis)/config/mbf_config/costmap_params.yaml" command="load" />
+        <rosparam file="$(find splined_voronoi_analysis)/config/mbf_config/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true" />
 
         <remap from="cmd_vel" to="/mir1/mobile_base_controller/cmd_vel_no" />
         <remap from="odom" to="/mir1/mobile_base_controller/odom" />
@@ -37,7 +37,7 @@
 
     <!--</group>-->
     <!-- This relay allows the usage of the old simple_goal topic from move_base -->
-    <node pkg="splined_voronoi_scripts" type="move_base_simple_relay.py" name="move_base_simple_relay" output="screen">
+    <node pkg="splined_voronoi_analysis" type="move_base_simple_relay.py" name="move_base_simple_relay" output="screen">
         <param name="global_planner_name" value="$(arg global_planner)" />
         <param name="local_planner_name" value="$(arg local_planner)" />
     </node>

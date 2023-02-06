@@ -12,7 +12,7 @@ It is used for:
 
 First create a venv inside of package for installing requirements:
 ```bash
-cd splined_voronoi_scripts
+cd splined_voronoi_analysis
 python3 -m venv venv
 source venv/bin/activate
 pip install -U pip
@@ -30,17 +30,17 @@ Has launchfiles to start all nodes neccessary for path planning.
 launching gazebo environment with turtlebot3 in it:
 - path to map without ending slash and to a folder which contains a world.world and map.yaml
 ```bash
-roslaunch splined_voronoi_scripts turtlebot_gazebo.launch path_to_map_folder:=/path/to/maps/folder
+roslaunch splined_voronoi_analysis turtlebot_gazebo.launch path_to_map_folder:=/path/to/maps/folder
 ```
 
 launching move base flex with splined_voronoi as global planner:
 ```bash
-roslaunch splined_voronoi_scripts splined_voronoi.launch
+roslaunch splined_voronoi_analysis splined_voronoi.launch
 ```
 
 launching move base flex with pure_voronoi_planner as global planner:
 ```bash
-roslaunch splined_voronoi_scripts pure_voronoi_planner.launch
+roslaunch splined_voronoi_analysis pure_voronoi_planner.launch
 ```
 
 
