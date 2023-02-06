@@ -12,6 +12,9 @@ from spline_helpers import (
 
 
 def single_quintic_bezier_curve():
+    """
+    Creates example of a quintic bezier curve as plot with tangents at start and end.
+    """
     t_s = np.array([0.0, 2.0], dtype=np.float64)
     t_e = np.array([2.0, 0.0], dtype=np.float64)
     a_s = np.array([3.0, 0.0], dtype=np.float64)
@@ -76,6 +79,12 @@ def single_quintic_bezier_curve():
 
 
 def example_path():
+    """
+    Creates example path consisting of 6 points.
+
+    Returns:
+        np.NDArray of points (2,6)
+    """
     points = np.array(
         [
             [1, 1],
@@ -92,6 +101,9 @@ def example_path():
 
 
 def example_spline():
+    """
+    Creates example spline from example path and plot differences in used tangent length and wconection points.
+    """
     num_samples = 100
 
     points = example_path()

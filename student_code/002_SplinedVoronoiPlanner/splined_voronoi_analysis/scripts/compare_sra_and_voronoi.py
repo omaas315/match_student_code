@@ -10,6 +10,16 @@ from spline_helpers import SplineAnalyzer
 
 
 def get_stats_from_bag(filename: str, min_dist_thresh: float = 1.5):
+    """
+    Reads results of path planning and smoothing from bagfile.
+
+    Args:
+        filename: name of bagfile as string
+        min_dist_thresh: minimum distance to obstacles for this map. (1.5 for testarena; 0.9 for spine).
+
+    Returns:
+        Tuple of planning success, time, path length, distances to obstacles, min distance to obstacles, max dist to obstacles, median distance to obstacles, path.
+    """
     if "voronoi" in filename:
         bag_contents = MakeNavPlanWithStatsBagContents(filename, skip_maps=False)
     else:
@@ -56,6 +66,15 @@ def get_stats_from_bag(filename: str, min_dist_thresh: float = 1.5):
 
 
 def get_curvatures_from_bag_with_stats(filename: str):
+    """
+    reads bagfile of type MakeNavPlanWithStats and calculates curvature for each point in path.
+
+    Args:
+        filename: string of bagfile name
+
+    Returns:
+        curvatures along path
+    """
     bag_contents = MakeNavPlanWithStatsBagContents(filename, skip_maps=True)
     if bag_contents.planning_status_code < 0:
         return []
@@ -66,6 +85,15 @@ def get_curvatures_from_bag_with_stats(filename: str):
 
 
 def get_curvatures_from_bag(filename: str):
+    """
+    reads bagfile of type MakeNavPlan and calculates curvature for each point in path.
+
+    Args:
+        filename: string of bagfile name
+
+    Returns:
+        curvatures along path
+    """
     bag_contents = MakeNavPlanBagContents(filename, skip_maps=False)
     if not bag_contents.planning_success:
         return []
@@ -78,6 +106,7 @@ def get_curvatures_from_bag(filename: str):
 
 
 def load_data_and_combine():
+    """Compares planned paths for sra and splined voronoi by reading bagfiles and computing distance to obstacles, curvature and success rate. Saves data to npy files for later plotting."""
     maps = ["spine", "testarena"]
     maps_dist_threshs = [0.9, 1.5]
     times_voronoi = []
@@ -208,6 +237,7 @@ def load_data_and_combine():
 
 
 def boxplots():
+    """Plotting of comparison of sra and splined_voronoi based on data read from npy files."""
     distances_maps_sra = np.load("data/compare_planner/distances_maps_sra.npz")
     distances_maps_voronoi = np.load("data/compare_planner/distances_maps_voronoi.npz")
     rel_path_lengths = np.load(

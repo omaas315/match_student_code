@@ -111,13 +111,21 @@ def world_to_map(point_world, map_origin, map_size_x, map_size_y, map_resolution
 
 
 class PathAnalyzer:
+    """Class for analyzing a single path. Has functions for calculating path length and distance to obstacles."""
     def __init__(self, path) -> None:
+        """
+        Intializes Class with path from ROS-Message and converts it to Array.
+
+        Args:
+            path: path as ROS message nav_msgs/Path.
+        """
         self.path = path
         self.points = points_from_path(self.path)
         self.angles = calc_angles(self.points)
         self.angles = np.append(self.angles, self.angles[-1])
 
     def calc_path_length(self):
+        """Calculates length of path."""
         differences = np.diff(self.points.T, axis=0)
         if len(differences) < 1:
             return 0.0
@@ -127,6 +135,15 @@ class PathAnalyzer:
         return path_length
 
     def calc_distances_to_obstacles(self, map_data):
+        """
+        Calculates distance to obstacle in given map for every point in path.
+
+        Args:
+            map_data: map as ROS message OccupancyGrid
+
+        Returns:
+            distances as array
+        """
         costmap_size_y = map_data.info.height
         costmap_size_x = map_data.info.width
         map_origin = (

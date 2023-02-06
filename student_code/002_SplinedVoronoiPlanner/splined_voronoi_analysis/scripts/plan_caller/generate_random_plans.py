@@ -13,6 +13,17 @@ from std_msgs.msg import Float64, Float64MultiArray, Int64
 def mapToWorld(
     point_map: Tuple[float, float], map_origin: Tuple[float, float], resolution: float
 ):
+    """
+    converts point from map coordinates (pixel) to world coordinates (meters).
+
+    Args:
+        point_map: 2D point in map coordinates.
+        map_origin: 2D origin of map as specified in costmap.
+        resolution: resolution of map in meter per pixel (typically 0.05).
+
+    Returns:
+        2D point in world coordinates.
+    """
     half_a_cell = 0.5
     point_world_x = map_origin[0] + (point_map[0] + half_a_cell) * resolution
     point_world_y = map_origin[1] + (point_map[1] + half_a_cell) * resolution
@@ -25,6 +36,14 @@ def write_plans_to_rosbag(
     max_curvature: float,
     map_data: OccupancyGrid,
 ):
+    """Saves randomly generted start and goal poses in bagfile for future use.
+
+    Args:
+        start_poses: List of start poses
+        goal_poses: List of goal poses
+        max_curvature: maximum allowed curvature for which map was altered.
+        map_data: map from which poses are generated.
+    """
     bag = rosbag.Bag(f"random_plans.bag", "w")
     formation_max_curvature = Float64(max_curvature)
     path_start_poses = Path()
@@ -44,9 +63,11 @@ def write_plans_to_rosbag(
 
 
 class RandomPlanGenerator:
+    """Class for randomly generating starts and goals for testing path planning."""
     # voronoi_data: OccupancyGrid = None
 
     def __init__(self, formation_radius: float = 1.0) -> None:
+        """Waits for map on ROS-topic and generates free points on it based on specified formation radius."""
         self.formation_radius = formation_radius
 
         print("ROS connection set up and running!")
@@ -62,6 +83,7 @@ class RandomPlanGenerator:
         # rospy.spin()
 
     def map_callback(self, data: OccupancyGrid):
+        """callbakc for message of ROS-topic with map; creates image from map"""
         costmap_size_y = data.info.height
         costmap_size_x = data.info.width
         self.map_origin = (data.info.origin.position.x, data.info.origin.position.y)
@@ -86,6 +108,7 @@ class RandomPlanGenerator:
         # pdb.set_trace()
 
     def get_free_points(self):
+        """get all free points on map."""
         scale_percent = 10
         width = int(self.free_space_img.shape[1] * scale_percent / 100)
         height = int(self.free_space_img.shape[0] * scale_percent / 100)
@@ -101,6 +124,7 @@ class RandomPlanGenerator:
     def get_random_plan(
         self, low_dist_thresh_m: float = 10.0, upper_dist_thresh_m: float = 75.0
     ) -> Tuple[PoseStamped, PoseStamped]:
+        """get a single random plan; first slect free point randomly as start; then select goal with specified distance limitations to start."""
         random_start_idx = np.random.choice(self.free_points.shape[0])
         start = self.free_points[random_start_idx]
         distances = np.linalg.norm((self.free_points - start).T, axis=0, ord=1)
@@ -139,6 +163,7 @@ class RandomPlanGenerator:
 
 
 def generate_multiple_plans():
+    """generates multiple random plans and saves them to a bagfile."""
     rospy.init_node("random_plan_generator")
     formation_radius = 1.0
     random_plan_generator = RandomPlanGenerator(formation_radius=formation_radius)
@@ -164,6 +189,7 @@ def generate_multiple_plans():
 
 
 class PlanningBagContents:
+    """Class for reading out contents of a bagfile which contains results of path planning."""
     def __init__(
         self, filename: str = "plan_00000.bag", skip_maps: bool = False
     ) -> None:

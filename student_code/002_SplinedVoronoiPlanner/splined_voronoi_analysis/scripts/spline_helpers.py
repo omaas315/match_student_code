@@ -157,6 +157,14 @@ def calc_control_points_for_path_sra(sparse_path, lengths):
 
 
 def get_coefficient_matrices(control_points):
+    """Calculates coefficients for quintic bezier spline for a set of control points.
+
+    Args:
+        control_points (np.NDArray): control points of spline.
+
+    Returns:
+        np.NDArray: matrix with coefficients for each bezier-curve.
+    """
     C_QBS = []
     for cps in control_points:
         C_QB = np.array(
@@ -174,6 +182,15 @@ def get_coefficient_matrices(control_points):
 
 
 def get_sample(C_QB, frac):
+    """Interpolates quintic bezier-spline at a given fraction.
+
+    Args:
+        C_QB: coefficient matrix as of @get_coefficient_matrices
+        frac: fraction for interpolation, between 0 and 1.
+
+    Returns:
+        Tuple: 2d value of spline, derivative, second derivative and curvature at this point
+    """
     T = np.array([frac**5, frac**4, frac**3, frac**2, frac, 1])
     T_der = np.array([5 * frac**4, 4 * frac**3, 3 * frac**2, 2 * frac, 1, 0])
     T_der2 = np.array([20 * frac**3, 12 * frac**2, 6 * frac, 2, 0, 0])
@@ -222,9 +239,18 @@ def sample_spline_path(control_points, num_samples=1000):
 
 
 class SplineAnalyzer:
+    """Class for analysing a specific spline. Also contins interface for offsetting spline path to get path of a robot in formation."""
     def __init__(
         self, optimized_sparse_path, spline_tangent_lengths, num_samples=1000
     ) -> None:
+        """
+        Initializes class; Calculates and interpolates spline from points; calculates orientation at each point and derivation of path.
+
+        Args:
+            optimized_sparse_path: waypoints from which spline is generated.
+            spline_tangent_lengths: tangent lengths at the connection points of bezier curves.
+            num_samples: number of samples per bezier curve.
+        """
         self.optimized_sparse_path = optimized_sparse_path
         self.spline_tangent_lengths = np.asarray(spline_tangent_lengths)
         self.points = points_from_path(self.optimized_sparse_path)
@@ -251,6 +277,15 @@ class SplineAnalyzer:
         self.offsets = []
 
     def offset(self, offset):
+        """
+        Offset spline by a given amount to generate path of a single robot in the formation.
+
+        Args:
+            offset: Tuple of x, y offset of robot relative to formation center.
+
+        Returns:
+            samples, angles, derivative, second derivative
+        """
         off_samples = offset_path(self.samples, self.angles, offset)
         off_angles = calc_angles(off_samples)
         off_angles = np.append(off_angles, off_angles[-1])
@@ -264,6 +299,15 @@ class SplineAnalyzer:
         return off_samples, off_angles, off_angles_der, off_angles_der2
 
     def calc_distances_to_obstacle(self, map_data):
+        """
+        Calculates distance to obstacle of formation path at every point in path to a given map.
+
+        Args:
+            map_data: Map as ROS message type OccupancyGrid
+
+        Returns:
+            distance for each sample in spline.
+        """
         costmap_size_y = map_data.info.height
         costmap_size_x = map_data.info.width
         map_origin = (

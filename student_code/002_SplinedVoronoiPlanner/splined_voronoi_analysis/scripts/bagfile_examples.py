@@ -10,6 +10,7 @@ from spline_helpers import calc_connection_points
 
 
 def sparsing_example_from_bag():
+    """Create plot for example waypoint selection from path. Reads data from data/sparsing_example.bag."""
     bag_contents = get_contents_from_bagfile("data/sparsing_example.bag")
 
     original_path = bag_contents["/move_base_flex/VoronoiGlobalPlanner/original_plan"]
@@ -56,6 +57,7 @@ def sparsing_example_from_bag():
 
 
 def splining_exmple_from_bag():
+    """Create plot for example splining and optimization of path. Reads data from data/splining_example.bag."""
     bag_contents = get_contents_from_bagfile("data/splining_example.bag")
 
     original_path = bag_contents["/move_base_flex/VoronoiGlobalPlanner/original_plan"]

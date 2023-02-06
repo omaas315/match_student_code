@@ -19,6 +19,7 @@ from single_path_planner import (
 def pose_from_str(
     pose_str: str = "[5.97142, 1.02662], -1.76848",
 ) -> Tuple[float, float, float]:
+    """Read Pose from string of specific composition."""
     pos_x_str, pos_y_str, yaw_angle_str = pose_str.split(", ")
     yaw_angle = float(yaw_angle_str)
     pos_x = float(pos_x_str[1:])
@@ -27,6 +28,7 @@ def pose_from_str(
 
 
 def pose_from_tuple(pose_tuple: Tuple[float, float, float]) -> PoseStamped:
+    """transforms Pose from Tuple of floats (x,y,angle) to ROS-Message type."""
     pose = PoseStamped()
     pose.header.frame_id = "map"
     pose.pose.position.x = pose_tuple[0]
@@ -39,6 +41,7 @@ def pose_from_tuple(pose_tuple: Tuple[float, float, float]) -> PoseStamped:
 def get_poses_from_line(
     line: str = "[5.97142, 1.02662], -1.76848 to [7.91423, 6.09365], 3.16417",
 ) -> Tuple[PoseStamped, PoseStamped]:
+    """Read start and goal pose from line of file."""
     # line.startswith("Planning from ")
     pose_strs = line.split(" to ")
     start = pose_from_str(pose_strs[0])
@@ -49,6 +52,7 @@ def get_poses_from_line(
 
 
 def get_plans_from_file(filename: str) -> List[Tuple[PoseStamped, PoseStamped]]:
+    """Iterate file and read plans from each line."""
     res_plans = []
     line = "- Planning from [5.97142, 1.02662], -1.76848 to [7.91423, 6.09365], 3.16417"
     lines = []

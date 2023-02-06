@@ -10,6 +10,15 @@ from path_helpers import PathAnalyzer
 
 
 def load_times_from_txt(filename):
+    """
+    Loads times for voronoi generation from a text file where it has been saved by pure_voronoi_planner compare_voronoi_results.
+
+    Args:
+        filename: string name of file.
+
+    Returns:
+        Tuple of specified dimensions, times of dynamicvoronoi and times of sweepline voronoi.
+    """
     dimensions = []
     times_dynamicvoronoi = []
     times_boostvoronoi = []
@@ -29,6 +38,7 @@ def load_times_from_txt(filename):
 
 
 def plot_voronoi_times():
+    """plotting of times for voronoi generation at different resolutions."""
     plt.rcParams.update(
         {
             "text.usetex": True,
@@ -77,6 +87,10 @@ def plot_voronoi_times():
 
 
 def overlay_voronoi_results():
+    """combine results of dynamicvoronoi and sweepline in single image for comparison.
+
+    dynamicvoronoi: blue; sweepline: white; both: green
+    """
     for dirname in ["Säulen", "spine", "testarena"]:
         base_path = f"data/voronoi/{dirname}/"
         img_boost = cv2.imread(f"{base_path}boostvoronoi_3.png")
@@ -95,6 +109,17 @@ def overlay_voronoi_results():
 
 
 def get_path_length_from_bag(filename: str, simple_length: bool = False):
+    """
+    Reads bagfile and calculates path length and distance to obstacles.
+
+    Args:
+        filename: name of bagfile
+        simple_length: if length should be calculated as number of points in path.
+
+    Returns:
+        Tuple of path length, minimal distance to obstacles, maximum distance to obstacles
+
+    """
     bag_contents = MakeNavPlanWithStatsBagContents(filename, skip_maps=False)
     if simple_length:
         return len(bag_contents.path.poses)
@@ -113,6 +138,11 @@ def get_path_length_from_bag(filename: str, simple_length: bool = False):
 
 
 def compare_freespace_inclusion():
+    """
+    Analyse differences in inclusion of freespaces in planning.
+    Reads bagfiles and calclulates distances to obstacles, and path lengths.
+    Saves results in npy files for later plotting.
+    """
     path_lengths_with_freespace = []
     path_lengths_without_freespace = []
     max_dists_with_freespace = []
@@ -206,6 +236,7 @@ def compare_freespace_inclusion():
 
 
 def create_freespace_boxplot():
+    """Creates plots from saved data of freespace comparison."""
     plt.rcParams.update(
         {
             "text.usetex": True,
@@ -275,12 +306,14 @@ def create_freespace_boxplot():
 
 
 def get_planning_time_from_bag(filename: str):
+    """Returns planning time from specified bagfile."""
     bag_contents = MakeNavPlanWithStatsBagContents(filename, skip_maps=True)
     planning_time = bag_contents.total_time
     return planning_time
 
 
 def compare_dijkstra_and_astar():
+    """Compares and prints info abound astar and dijkstra planning bagfiles regarding success rate and mean time."""
     for dirname in ["without_freespace", "with_freespace"]:
         print(f"Loading bags from directory: {dirname}")
         planning_times_astar = []

@@ -12,6 +12,9 @@ from spline_helpers import SplineAnalyzer
 
 def single_formation_path():
     """
+    Loads planned and smoothed path from bagfile and create robot paths for example formation.
+    Plotting of paths, collisions, angles and angular velocity.
+
     For Usage on random_plans_algorithms/NEWUOA/plan_00002.bag
     """
     plt.rcParams.update(

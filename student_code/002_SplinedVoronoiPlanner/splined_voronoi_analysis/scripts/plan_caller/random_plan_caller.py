@@ -18,6 +18,7 @@ from std_msgs.msg import Float64, Float64MultiArray, Int64
 
 
 class PlanningBagContents:
+    """Class for reading out contents of a bagfile which contains results of path planning."""
     def __init__(
         self, filename: str = "plan_00000.bag", skip_maps: bool = False
     ) -> None:

@@ -10,6 +10,15 @@ from path_helpers import PathAnalyzer
 
 
 def get_success_and_time_from_bag(filename: str):
+    """
+    Reads success and planning time from bagfile.
+
+    Args:
+        filename: name of bagfile with data from MakeNavPlanWithStats as string
+
+    Returns:
+        Tuple: if planning was successful and planning time
+    """
     bag_contents = MakeNavPlanWithStatsBagContents(filename, skip_maps=True)
     planning_time = bag_contents.total_time
     success = bag_contents.planning_status_code >= 0
@@ -17,6 +26,16 @@ def get_success_and_time_from_bag(filename: str):
 
 
 def get_success_rate_and_time(algorithm: str):
+    """
+    Get success rate and mean time of specififed optimization algorithm.
+
+    Args:
+        algorithm: name of optimization algorithm (BOBYQA, COBYLA, Nelder-Mead, NEWOUA, PRAXIS, SBPLX)
+
+    Returns:
+        Tuple of success quota, mean planning time, median planning time, indeces where planning failed
+
+    """
     planning_times = []
     success_count = 0
     num_bags = 100
@@ -43,6 +62,7 @@ def get_success_rate_and_time(algorithm: str):
 
 
 def compare_algorithms():
+    """Prints stats of different optimization algorithms."""
     algorithms = ["BOBYQA", "COBYLA", "Nelder-Mead", "NEWUOA", "PRAXIS", "SBPLX"]
     failed_idxs = []
     for algorithm in algorithms:

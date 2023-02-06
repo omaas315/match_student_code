@@ -19,6 +19,7 @@ from std_msgs.msg import Bool, Float64, Float64MultiArray, Int64
 
 
 def pose_from_tuple(pose_tuple: Tuple[float, float, float]) -> PoseStamped:
+    """transforms Pose from Tuple of floats (x,y,angle) to ROS-Message type."""
     pose = PoseStamped()
     pose.header.frame_id = "map"
     pose.pose.position.x = pose_tuple[0]
@@ -38,6 +39,7 @@ def write_rosbag_with_stats(
     map_data: OccupancyGrid,
     voronoi_data: OccupancyGrid,
 ):
+    """Writes rosbag with result from path planning via MakePlanWithStats interface."""
     bag = rosbag.Bag(f"{algorithm}/plan_{str(index).zfill(5)}.bag", "w")
     planning_status_code = Int64(service_response.plan_found)
     total_time = Float64(service_response.time_taken)
@@ -84,6 +86,7 @@ def write_rosbag(
     max_curvature: float,
     map_data: OccupancyGrid,
 ):
+    """Writes rosbag with result from path planning via MakePlan interface."""
     bag = rosbag.Bag(f"plan_{str(index).zfill(5)}_{suffix}.bag", "w")
     total_time = Float64(time_taken)
     success = Bool(service_response.plan_found)
@@ -109,7 +112,7 @@ def call_path_planner_with_stats(
     max_curvature: float,
     planner_name: str = "SplinedVoronoiPlanner",
 ) -> MakePlanWithStatsResponse:
-    """Call make_plan service of global planner."""
+    """Call make_plan_with_stats service of global planner."""
     service_name = f"/move_base_flex/{planner_name}/make_plan_with_stats"
     try:
         rospy.wait_for_service(service_name, 2)
@@ -168,9 +171,11 @@ def call_path_planner(
 
 
 class VoronoiListener:
+    """Class for getting voronoi map from topic and saving it."""
     voronoi_data: OccupancyGrid = None
 
     def __init__(self, planner_type: str = "SplinedVoronoiPlanner") -> None:
+        """Initializes class with planner name; creates subscriber on voronoi topic."""
         self.voronoi_received = False
 
         # rospy.init_node("voronoi_listener")
@@ -181,6 +186,7 @@ class VoronoiListener:
         )
 
     def voronoi_callback(self, data: OccupancyGrid):
+        """Callback if voornoi map has been received; creates image from map."""
         print("Got voronoi map")
         self.voronoi_data = data
         voronoi_size_y = data.info.height
@@ -200,10 +206,12 @@ class VoronoiListener:
         self.voronoi_received = True
 
     def reset_voronoi_received(self):
+        """reset if voronoi map has been received."""
         self.voronoi_received = False
 
 
 def single_plan_caller():
+    """waits for start and goal on topics, sends them to planner and saves results in bagfile."""
     rospy.init_node("single_plan_caller")
     # bag 0
     # start = [9.825, 10.575, 0]

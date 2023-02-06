@@ -2,6 +2,7 @@ import rosbag
 
 
 def get_contents_from_bagfile(filename: str):
+    """Reads all contents from specified bagfile."""
     bag = rosbag.Bag(filename)
     bag_contents = {}
     for topic, msg, t in bag.read_messages(topics=[]):
@@ -12,9 +13,16 @@ def get_contents_from_bagfile(filename: str):
 
 
 class PlanningBagContents:
+    """Class to wrap contents of a bagfile containing results of a path planning and smoothing."""
     def __init__(
         self, filename: str = "plan_00000.bag", skip_maps: bool = False
     ) -> None:
+        """Intializes class by reading bagfile.
+
+        Args:
+            filename: name of bagfile as string
+            skip_maps: if maps should be skipped in reading; can improve time taken but reduces available information.
+        """
         self.skip_maps = skip_maps
         self.bag_contents = {}
         self.read_rosbag(filename)
@@ -29,6 +37,7 @@ class PlanningBagContents:
             self.map_data = self.bag_contents["map_data"]
 
     def read_rosbag(self, filename: str):
+        """Reads data from specified bagfile."""
         bag = rosbag.Bag(filename)
         for topic, msg, t in bag.read_messages(
             topics=[], connection_filter=self.filter_map_topics
@@ -38,6 +47,7 @@ class PlanningBagContents:
         bag.close()
 
     def filter_map_topics(self, topic, datatype, md5sum, msg_def, header):
+        """Filters out topics in bagfile with map type if skip_maps is specified."""
         # print(datatype)
         if self.skip_maps and datatype == "nav_msgs/OccupancyGrid":
             # print("skipping topic with occupancy grid")
@@ -46,6 +56,7 @@ class PlanningBagContents:
 
 
 class MakeNavPlanBagContents(PlanningBagContents):
+    """Class for wrapping bagfile contents from planning with service of type MakeNavPlan."""
     def __init__(
         self, filename: str = "plan_00000.bag", skip_maps: bool = False
     ) -> None:
@@ -55,6 +66,7 @@ class MakeNavPlanBagContents(PlanningBagContents):
 
 
 class MakeNavPlanWithStatsBagContents(PlanningBagContents):
+    """Class for wrapping bagfile contents from planning with service of type MakeNavPlanWithStats."""
     def __init__(
         self, filename: str = "plan_00000.bag", skip_maps: bool = False
     ) -> None:
