@@ -25,7 +25,6 @@
   <depend>nav_core</depend>
   <depend>libqhull</depend>
   <depend>splined_voronoi</depend>
-  <depend>nlopt</depend>
   <depend>move_base_flex</depend>
   <depend>turtlebot3</depend>
   <depend>dynamic_reconfigure</depend>
