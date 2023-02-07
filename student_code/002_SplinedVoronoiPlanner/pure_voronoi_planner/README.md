@@ -18,9 +18,9 @@ Example Launchfile is in [splined_voronoi_analysis/launch](../splined_voronoi_an
 Available Parameters (can be adapted in yaml or via dynamic reconfigure):
 - free_cell_threshold: threshold for defining free space from costmap. Should be chosen so that a single robot is guaranteed without collision.
 - min_radius: minimal radius that robot formation takes; costmap is enlargened accordingly
-- use_dijkstra: if dijkstra should be used for path planning; if false a* is used
-- free_space_factor: factor for min_radius. at this distance to obstacles freespace is added to planning space regardless of voronoi diagram
-- large_free_spaces: if additional free spaces should be added; if false pure voronoi diagram is used for planning
+- use_dijkstra: if dijkstra should be used for path planning otherwise a* is used
+- free_space_factor: factor for min_radius. At this distance to obstacles freespace is added to planning space regardless of voronoi diagram
+- large_free_spaces: if additional free spaces should be added; otherwise pure voronoi diagram is used for planning
 
 
 ## Starting comparison of voronoi generation
@@ -30,6 +30,6 @@ rosrun pure_voronoi_planner compare_voronoi_results path/to/map.pgm
 ```
 
 Feeds map in dynamicvoronoi and sweepline and saves results and intermediate images in data/voronoi folder.
-Scales map to 4 resolutions
-Saves times for generating in txt for plotting data.
+Scales map to 4 resolutions and
+saves times for generating in txt file for later plotting of data.
 

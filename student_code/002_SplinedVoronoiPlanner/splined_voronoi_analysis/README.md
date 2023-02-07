@@ -21,14 +21,12 @@ pip install -r requirements.txt
 
 For generating results run scripts from 002_SplinedVoronoiPlanner folder.
 
-ToInclude:
-- src for generating different sized voronoi?
 
 # launch
 Has launchfiles to start all nodes neccessary for path planning.
 
 launching gazebo environment with turtlebot3 in it:
-- path to map without ending slash and to a folder which contains a world.world and map.yaml
+- needs argument for used map as path to a folder which contains a world.world and map.yaml without ending slash
 ```bash
 roslaunch splined_voronoi_analysis turtlebot_gazebo.launch path_to_map_folder:=/path/to/maps/folder
 ```
@@ -56,8 +54,9 @@ creates plot for example splining and optimizing process
 - splining_exmple_from_bag: creates plot for example splined and optimized path
 
 ## bagfile_helpers.py
-contains function for loading data from bagfiles
-- get_contents_from_bagfile: assumes single data per tompic and saved them in dictionary
+contains helper function and class for loading data from bagfiles
+- get_contents_from_bagfile: assumes single data per topic and saved them in dictionary
+- PlanningBagContents, MakeNavPlanBagContents, MakeNavPlanWithStatsBagContents: classes for loading and accessing information saved in bagfiles from different service interfaces.
 
 ## compare_algorithms.py
 prints quota and time for each optimization algorithm
@@ -86,6 +85,7 @@ contains functions which are useful for path handling
 - calc_derivative: calculates numerical derivative of discrete samples
 - offset_path: for a path with angles apply a constant offset to get single robot location
 - world_to_map: transform 2d points from metric world frame to pixel based map frame
+- PathAnalyzer: class for handling a single path with functions for calculating path length and distance to obstacles
 
 ## plan_caller:
 scripts to automatically call path planning and saving results in bagfiles.
@@ -118,4 +118,4 @@ creates plots of an example quintic bézier-spline
 - path_smooth_opt: optimal choice of tangent length for good aproximation of initial path
 
 also creates plot for single quintic bézier curve
-- single_quintic_bezier_curve: bézier curve with control points an dtangents for visualization
+- single_quintic_bezier_curve: bézier curve with control points and tangents for visualization
