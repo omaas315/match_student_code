@@ -574,11 +574,12 @@ class Optimization():
         while not rospy.is_shutdown():
             dt = self.rate.sleep_dur.to_sec()
             q=self.j.q
-            # gradient = self.calc_gradient(q)
-            dist = self.minimize_to_distance(q, maxiter=10)
-            gradient = dist*dt
-            gradient*=1.0 # kann auch hoeher sein, da nur zum Ausrechnen von up benutzt -> gradient  gegen 0
-            # rospy.logdebug("gradient by min: {}".format(gradient))
+            gradient = self.calc_gradient(q)
+            
+            #via minimize:
+            # dist = self.minimize_to_distance(q, maxiter=10)
+            # gradient = dist*dt
+            # gradient*=1.0 # kann auch hoeher sein, da nur zum Ausrechnen von up benutzt -> gradient  gegen 0
             
             j_m = self.ur.group.get_jacobian_matrix(list(q))
             # negate x and y of jacobian j_m
