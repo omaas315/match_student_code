@@ -72,7 +72,7 @@
 
   * synchronize ssh timing between agilex and rosmaster (on rosmaster: `$ssh agilex sudo date -s @$(date -u +"%s")`) check with shared terminal `$date`
 
-  ## start the Robot's Initialisation and the Extended Kalman Filter
+  ## Start the Robot's Initialisation and the Extended Kalman Filter
 
   * Change to sgilx `$ ssh agilx`
   * Connect to the robot `$ sudo chmod 666 /dev/ttyUSB0`
