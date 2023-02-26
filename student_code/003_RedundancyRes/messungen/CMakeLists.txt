@@ -10,6 +10,9 @@ project(messungen)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  geometry_msgs
+  std_msgs
+  
 )
 
 ## System dependencies are found with CMake's conventions

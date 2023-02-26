@@ -2,7 +2,7 @@ from typing import Optional
 
 import numpy as np
 import rospy
-import moveit_commander
+# import moveit_commander
 from match_lib.match_robots import Joints
 from std_msgs.msg import Float64
 from match_lib.robot_mats.jacobians.jacobian_ur_16_eef import getJacobianUr16_base_link_inertiaUr16_wrist_3_link as jacobian_ur_16_eef

@@ -20,6 +20,8 @@ ROS Noetic has to be installed on the system.\\
 The following python packages are needed:
 - _numpy_
 - _scipy_
+- _pandas_
+- _matplotlib_
 
 ### Installing
 
