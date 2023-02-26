@@ -16,6 +16,7 @@ For more details see [Readme](optimization_algo/README.md).
 - input: cartesian velocity command
 - output: UR velocity
 - output: MiR velocity
+
 Can either be used as a class to be implemented in own script, or otherwise by just running the main.
 Needs a running controller for the Robot arm listening to topic at `cooperative_manipulation/cartesian_velocity_command`.
 
