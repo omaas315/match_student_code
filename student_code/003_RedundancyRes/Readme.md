@@ -26,7 +26,7 @@ Needs a running controller for the Robot arm listening to topic at `cooperative_
 parallel force_pos controller for the robot arm using _mur.lauch_ of _match_mobile_robotics_
 
 ### match_mobile_robotics
-...
+see also: [github](https://github.com/pumablattlaus/match_mobile_robotics/tree/working_with_optimization)
 
 ### measurements
 ...
