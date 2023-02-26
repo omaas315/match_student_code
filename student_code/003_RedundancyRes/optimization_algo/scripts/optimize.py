@@ -15,16 +15,14 @@ import numdifftools as nd
 from math import pi
 
 import sys
-from match_lib.gazebo import GazeboVelocity, GazeboPose
+#from match_lib.gazebo import GazeboVelocity, GazeboPose
 # from match_lib.match_geometry import rotateVector
 from match_lib.filter import MovingAvg
 from geometry_msgs.msg import Twist, TwistStamped, TwistWithCovarianceStamped, Vector3, Vector3Stamped, PoseWithCovarianceStamped, Pose
-from sensor_msgs.msg import JointState
 from nav_msgs.msg import Odometry
 import moveit_commander
 import tf
 from tf import transformations
-from pykdl_utils.kdl_kinematics import create_kdl_kin
 # from simple_pid import PID 
 
 Twist.__neg__ = lambda self: Twist(linear=Vector3(self.linear.x * -1, self.linear.y * -1, self.linear.z * -1),angular=Vector3(self.angular.x * -1, self.angular.y * -1, self.angular.z * -1))
