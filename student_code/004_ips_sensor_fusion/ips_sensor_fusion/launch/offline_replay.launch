@@ -2,7 +2,7 @@
     <param name="use_sim_time" value="true" />
 
     <!-- define bagfile to use for replay -->
-    <arg name="bagfile" default="kreuzmuster2_noOdom.bag" />
+    <arg name="bagfile" default="kreuzmuster2_noTF.bag" />
 
     <!-- map -->
         <arg name="map_file" default="$(find ips_sensor_fusion)/floorplan/map_2810_4_corrected.yaml"/>
