@@ -54,8 +54,8 @@ To merge your changes/added files into the official match-ROS repository, we nee
 ## Content Overview
 | Id | Thesis title | Description |
 | --- | --- | --- |
-| 000 | Example Folder | This folder contains templates and examples how it should look like |
-| 001 | Evaluation of an Ultrasound-based Indoor Localization System for Mobile Multi-robot Systme | In this work we developed a localization system based on the sensor fusion approach using the EKF|
+| [000](student_code/000_ExampleFolder/README.md) | Example Folder | This folder contains templates and examples how it should look like |
+| [001](student_code/001_UltrasoundBasedLocalization/README.md) | Evaluation of an Ultrasound-based Indoor Localization System for Mobile Multi-robot Systme | In this work we developed a localization system based on the sensor fusion approach using the EKF|
 | [002](student_code/002_SplinedVoronoiPlanner/README.md) | Planung und Glättung von Pfaden für Formationen nicht-holonomer mobiler Roboter | Path planning with voronoi diagrams and smoothing with quintic bezier-splines |
 | [003](student_code/003_RedundancyRes/Readme.md) | Development of an Optimization Function for Redundancy Resolution while Avoiding Singularities for Redundant Mobile Manipulators | Optimization for the UR16 and MiR100/200 on basis of reduced gradient |
-| 004 | Entwicklung und Evaluierung von Konzepten zur Nutzung von Ultraschall Indoor Positioning Systemen in der mobilen Robotik | concept for fusing ultrasonic ips data with amcl and imu using kalman filters |
+| [004](student_code/004_ips_sensor_fusion/README.md) | Entwicklung und Evaluierung von Konzepten zur Nutzung von Ultraschall Indoor Positioning Systemen in der mobilen Robotik | concept for fusing ultrasonic ips data with amcl and imu using kalman filters |
