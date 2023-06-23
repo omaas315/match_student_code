@@ -23,3 +23,6 @@
 	path = student_code/004_ips_sensor_fusion/robot_localization
 	url = https://github.com/cra-ros-pkg/robot_localization.git
 	branch = noetic-devel
+[submodule "student_code/002_SplinedVoronoiPlanner/match_path_planning"]
+	path = student_code/002_SplinedVoronoiPlanner/match_path_planning
+	url = https://github.com/match-ROS/match_path_planning/
