@@ -1,10 +1,11 @@
 # Formation Builder
 ## Overview
 
-This package contains all the scripts and files required to use the PMADMU plan. The PMADMU-Planner is a multi-agent path planning algorithm with which robots can be transferred into a predefined formation.
+This package contains all the scripts and files required to use the PMADMU-planner. The PMADMU-planner is a multi-agent path planning algorithm with which robots can be transferred into a predefined formation. It's functionality is described in the masters thesis "Entwicklung einer skalierbaren Multiagenten-Pfadplanung zur Formationsbildung für nicht-holonome mobile Roboter" which was written at the "Institut für Montagetechnik" (match) at the Leibniz Universität Hannover.
 
 **Author:** Max Westermann
 **E-Mail:** m.westermann@stud.uni-hannover.de
+
 
 ## Installation
 
@@ -21,6 +22,7 @@ Required Packages:
 
 
 ## Usage SCALE
+
 To use this project with the MIR600 Platforms at Scale use the following commands in that specific order. To use the project in a simulated environment use the commands listed under "Usage SIM".
 
 *** LAUNCH ON ROSCORE: login via "ssh roscore" ***
@@ -47,6 +49,7 @@ roslaunch formation_builder central_controller.launch
 
 
 ## Usage SIM
+
 To use this project in an simulated GAZEBO-environment use the following commands in that specific order. To use the project at SCALE use the commands listed under "Usage SCALE".
 
 roslaunch formation_builder launch_four_robots.launch
