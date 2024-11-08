@@ -1,4 +1,4 @@
-# Example Folder
+# AMCL Object Geometries
 ## Overview
 
 This folder contains all the code used for the bachelor thesis. The implementation was with ROS Noetic and Python 3.
