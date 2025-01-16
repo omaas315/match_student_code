@@ -5,7 +5,7 @@ This repository contains all code of the students working at the Institut of Ass
 1. Fork this repository by clicking on the `fork`-button: ![ForkButton](documentation/fork_button.png). Afterwards click `Create fork`.
 2. Click on the `README.md`-file and then click on the edit-button: ![EditButton](documentation/edit_button.png) 
 3. Add another line to the table at the bottom. (You can copy the line of the student above for the structure)
-4. Column `Id`: Increase the previous Id by 1. Please memorize the `Id`, as it will be used in future steps. (always three numbers, f.e. `007` or `069`)
+4. Column `Id`: Use the (planned) submission date of your thesis in the format yymmdd.
 5. Column `Thesis title`: Insert the title of your thesis.
 6. Column `Description`: Explain in one sentence what algorithm or code you developed in your thesis.
 7. Type in a meaningful commit message and commit the changes.
