@@ -218,7 +218,7 @@ def plot_and_save_log():
 def main_loop():
     global current_velocity
 
-    rate = rospy.Rate(10)  # 10 Hz loop rate
+    rate = rospy.Rate(1/dt)  # 10 Hz loop rate
 
     start_time = time.time()
 
@@ -240,11 +240,13 @@ def main_loop():
                 # Geschwindigkeit berechnen
                 current_velocity = calculate_velocity(acc_x, acc_z, current_velocity)
 
-                # Distanze berechnen 
+                # Distanze berechnen (nur in x)
                 distance = calculate_distance(current_velocity)
 
-                # Höhendifferenz berechnen 
+                # Höhendifferenz aufgrund pitch und distance berechnen 
                 height_difference = calculate_height_difference(distance, pitch)
+
+                #TODO: height difference aufgrund von Neigung und Hebelarm um den Kippunktes fehlt
 
                 # Endeffektorhöhe extrahieren
                 current_z = z_ib + current_tcp_pose[2]
@@ -292,16 +294,3 @@ if __name__ == "__main__":
     finally:
         rospy.loginfo("Erstelle Plots der Logger-Daten...")
         plot_and_save_log()
-
-
-
-
-
-
-
-
-
-
-
-
-
